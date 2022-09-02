@@ -18,6 +18,7 @@ import {RectButton} from 'react-native-gesture-handler';
 import SearchResultsItem from '../../components/SearchResultsItem';
 
 import {windowWidth, windowHeight} from '../../utils';
+import {color} from '../../utils/theme';
 
 import {
   searchNews,
@@ -28,9 +29,8 @@ import {
 export default function SearchResults({navigation, route}) {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState(route?.params?.query || '');
-  const {searchNews: data, isLoadingSearchNews} = useSelector(
-    state => state.search,
-  );
+  const {searchNews: data, isLoadingSearchNews} =
+    useSelector(state => state.search) || {};
 
   useEffect(() => {
     dispatch(searchNews(route?.params?.query));
@@ -78,7 +78,7 @@ export default function SearchResults({navigation, route}) {
       </View>
       {isLoadingSearchNews ? (
         <View style={styles.loadingIndicator}>
-          <ActivityIndicator size="large" color="red" />
+          <ActivityIndicator size="large" color={color} />
         </View>
       ) : (
         <FlatList
@@ -161,16 +161,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   recentSearch: {
-    color: 'grey',
-    fontSize: windowWidth * 0.036,
-    fontWeight: '500',
+    color: 'rgba(0,0,0,0.8)',
+    fontSize: windowWidth * 0.035,
   },
   clearButton: {
     padding: '1%',
     marginRight: '2%',
   },
   clear: {
-    color: 'red',
+    color: color,
     fontSize: windowWidth * 0.034,
     fontWeight: '500',
   },

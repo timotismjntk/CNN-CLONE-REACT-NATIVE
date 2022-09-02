@@ -26,7 +26,7 @@ const persistConfig = {
   key: 'root',
   storage: reduxStorage,
   version: 0,
-  // whitelist: ['auth'],
+  whitelist: ['savedArticles'],
   stateReconciler: hardSet,
 };
 

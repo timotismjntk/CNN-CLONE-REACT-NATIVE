@@ -1,9 +1,10 @@
 import React, {useEffect, useMemo} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {windowWidth, windowHeight} from '../../utils';
+import {color} from '../../utils/theme';
 
 // import action reducer
 import {sportNews} from '../../redux/reducer/news';
@@ -13,7 +14,8 @@ import News from '../../components/News';
 
 export default function Sports({navigation}) {
   const dispatch = useDispatch();
-  const {sportNews: data} = useSelector(state => state.news);
+  const {sportNews: data, isLoadingSportNews} =
+    useSelector(state => state.news) || {};
 
   useEffect(() => {
     dispatch(sportNews());
@@ -25,7 +27,24 @@ export default function Sports({navigation}) {
     <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.container}>
       <FlatList
         data={memoizedValue}
-        renderItem={News}
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoadingSportNews}
+            onRefresh={() => {
+              dispatch(sportNews());
+            }}
+            colors={[
+              color,
+              'yellow',
+              '#0099e5',
+              '#34bf49',
+              '#000000',
+              '#6a737b',
+              '#fc636b',
+            ]}
+          />
+        }
+        renderItem={props => <News {...props} />}
         keyExtractor={(item, index) =>
           String(item?.publishedAt) + index?.toString()
         }

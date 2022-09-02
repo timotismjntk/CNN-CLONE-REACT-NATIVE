@@ -10,13 +10,14 @@ import {RectButton} from 'react-native-gesture-handler';
 import RecentSearch from '../../components/RecentSearch';
 
 import {windowWidth, windowHeight} from '../../utils';
+import {color} from '../../utils/theme';
 
 import {clearRecentSearch, addRecentSearch} from '../../redux/reducer/search';
 
 export default function Search({navigation}) {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState('');
-  const {recentSearches} = useSelector(state => state.search);
+  const {recentSearches} = useSelector(state => state.search) || {};
 
   const memoizedValue = useMemo(() => recentSearches || [], [recentSearches]);
 
@@ -131,7 +132,7 @@ const styles = StyleSheet.create({
     marginRight: '2%',
   },
   clear: {
-    color: 'red',
+    color: color,
     fontSize: windowWidth * 0.034,
     fontWeight: '500',
   },

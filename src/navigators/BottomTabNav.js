@@ -5,6 +5,7 @@ import {BottomFabBar} from 'rn-wave-bottom-bar';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {windowWidth, windowHeight} from '../utils';
+import {color} from '../utils/theme';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,29 +18,31 @@ export default function RootNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: 'red',
+        tabBarActiveTintColor: color,
         tabBarInactiveTintColor: 'grey',
         tabBarActiveBackgroundColor: 'white',
         tabBarInactiveBackgroundColor: 'white',
         tabBarHideOnKeyboard: true,
         lazy: true,
         tabBarStyle: {
-          height: windowHeight * 0.08,
+          height: windowHeight * 0.085,
         },
       }}>
       <Tab.Screen
         options={{
-          tabBarIcon: ({focused, size, color}) => (
+          tabBarIcon: ({focused, size, color: bottomColor}) => (
             <MaterialIcons
               name="home"
-              size={size + windowWidth * 0.01}
-              color={color}
+              size={
+                focused ? size + windowWidth * 0.02 : size + windowWidth * 0.01
+              }
+              color={bottomColor}
             />
           ),
           headerShown: false,
           tabBarLabel: 'Home',
           tabBarLabelStyle: {
-            fontSize: windowWidth * 0.03,
+            fontSize: windowWidth * 0.034,
             marginBottom: '2%',
           },
         }}
@@ -49,23 +52,25 @@ export default function RootNavigator() {
       />
       <Tab.Screen
         options={{
-          tabBarIcon: ({focused, size, color}) => (
+          tabBarIcon: ({focused, size, color: bottomColor}) => (
             <MaterialIcons
               name="search"
-              size={size + windowWidth * 0.01}
-              color={color}
+              size={
+                focused ? size + windowWidth * 0.02 : size + windowWidth * 0.01
+              }
+              color={bottomColor}
             />
           ),
           headerTitle: 'Search',
           headerTintColor: 'white',
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: 'red',
+            backgroundColor: color,
           },
           headerLeft: null,
           tabBarLabel: 'Search',
           tabBarLabelStyle: {
-            fontSize: windowWidth * 0.03,
+            fontSize: windowWidth * 0.034,
             marginBottom: '2%',
           },
         }}
@@ -74,25 +79,16 @@ export default function RootNavigator() {
       />
       <Tab.Screen
         options={{
-          tabBarIcon: ({focused, size, color}) => (
+          tabBarIcon: ({focused, size, color: bottomColor}) => (
             <MaterialIcons
               name="person"
-              size={size + windowWidth * 0.01}
-              color={color}
+              size={
+                focused ? size + windowWidth * 0.02 : size + windowWidth * 0.01
+              }
+              color={bottomColor}
             />
           ),
-          headerTitle: 'Settings',
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: 'red',
-          },
-          headerLeft: null,
-          tabBarLabel: 'Settings',
-          tabBarLabelStyle: {
-            fontSize: windowWidth * 0.03,
-            marginBottom: '2%',
-          },
+          headerShown: false,
         }}
         name="SettingsNavigator"
         component={SettingsNavigator}

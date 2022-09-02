@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 import {horizontalTransition} from '../utils';
+import {color} from '../utils/theme';
 
 // import navigators
 import BottomTabNav from './BottomTabNav';
@@ -12,7 +13,7 @@ import BottomTabNav from './BottomTabNav';
 export default function RootNavigator() {
   return (
     <NavigationContainer>
-      <StatusBar animated={true} translucent backgroundColor="red" />
+      <StatusBar animated={true} translucent backgroundColor={color} />
       <Stack.Navigator>
         <Stack.Screen
           options={{...horizontalTransition, headerShown: false}}

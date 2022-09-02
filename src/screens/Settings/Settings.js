@@ -1,10 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, ScrollView, View} from 'react-native';
+import {RectButton} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {windowWidth, windowHeight} from '../../utils';
 
-export default function Settings() {
+export default function Settings({navigation}) {
   return (
     <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -18,13 +19,15 @@ export default function Settings() {
             <Text style={styles.sectionTitle}>Create a free TIMO Account</Text>
             <View style={styles.separator} />
           </View>
-          <View style={styles.sectionRow}>
+          <RectButton
+            onPress={() => navigation.navigate('SavedArticles')}
+            style={styles.sectionRow}>
             <Text style={styles.sectionTitle}>Saved Stories</Text>
             <Text style={styles.sectionSubTitle}>
               Find your saved articles here
             </Text>
             <View style={styles.separator} />
-          </View>
+          </RectButton>
         </View>
         <View style={styles.section}>
           <Text style={styles.sectionHeaderTitle}>APP PREFERENCES</Text>

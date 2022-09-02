@@ -14,10 +14,6 @@ import {windowWidth, horizontalTransition} from '../utils';
 
 export default function UserNavigator() {
   // call accesscode stored in mmkv storage
-  const {pengguna, isLoginUserModalSuccessOpen} = useSelector(
-    state => state.auth,
-  );
-
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -43,7 +39,7 @@ export default function UserNavigator() {
           headerTintColor: 'white',
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: 'red',
+            backgroundColor: '#e30000',
           },
           headerLeft: null,
         }}
@@ -58,7 +54,7 @@ export default function UserNavigator() {
           headerTintColor: 'white',
           headerTitleAlign: 'center',
           headerStyle: {
-            backgroundColor: 'red',
+            backgroundColor: '#e30000',
           },
           headerLeft: null,
         }}

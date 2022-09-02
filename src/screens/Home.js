@@ -11,6 +11,7 @@ import Entertainment from './News/Entertainment';
 import Business from './News/Business';
 
 import {windowWidth} from '../utils';
+import {color} from '../utils/theme';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -19,7 +20,7 @@ export default function Home({navigation}) {
     <TopTab.Navigator
       screenOptions={{
         tabBarPressColor: 'transparent',
-        tabBarIndicatorStyle: {backgroundColor: 'red'},
+        tabBarIndicatorStyle: {backgroundColor: color},
         tabBarActiveTintColor: 'black',
         tabBarInactiveTintColor: 'grey',
         tabBarScrollEnabled: true,

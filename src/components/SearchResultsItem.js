@@ -1,14 +1,16 @@
 import React from 'react';
-import {StyleSheet, Image, Text, View} from 'react-native';
+import {StyleSheet, Image, Text, View, Linking} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {windowWidth} from '../utils';
+import {color} from '../utils/theme';
 
-export default function SearchResultsItem({item, index, navigation}) {
+export default function SearchResultsItem({item, index}) {
   return (
     <RectButton
-      onPress={() => navigation.navigate('SearchResults', {query: item})}
+      onPress={() => Linking.openURL(item.url)}
+      rippleColor={color}
       style={styles.container}
       key={index}>
       <View style={styles.contentWrapper}>
@@ -49,9 +51,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    color: 'rgba(0,0,0,0.6)',
+    color: 'rgba(0,0,0,0.8)',
     fontSize: windowWidth * 0.036,
-    fontWeight: '500',
   },
   titleAndDateWrapper: {
     flex: 1,
@@ -73,5 +74,13 @@ const styles = StyleSheet.create({
     color: 'rgba(0,0,0,0.5)',
     fontSize: windowWidth * 0.028,
     marginTop: '3%',
+  },
+  button: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    width: '100%',
+    zIndex: 10,
+    borderRadius: 10,
   },
 });
