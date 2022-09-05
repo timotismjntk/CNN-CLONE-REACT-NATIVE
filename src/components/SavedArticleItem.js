@@ -9,7 +9,7 @@ import Animated, {
 import {useDispatch} from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import {removeArticleById} from '../redux/reducer/savedArticles';
+import {removeSavedArticleById} from '../redux/reducer/savedArticles';
 
 import {windowWidth} from '../utils';
 
@@ -37,7 +37,7 @@ export default function SavedArticleItem({item, index, navigation}) {
             name="delete"
             size={windowWidth * 0.062}
             color="black"
-            onPress={() => dispatch(removeArticleById(index))}
+            onPress={() => dispatch(removeSavedArticleById(index))}
           />
         </View>
       </View>

@@ -8,7 +8,7 @@ const savedArticlesSlicer = createSlice({
   name: 'savedArticles',
   initialState,
   reducers: {
-    addArticle: (state, {payload}) => {
+    addSavedArticle: (state, {payload}) => {
       const findArticle = state.savedArticles.findIndex(
         article =>
           article.title === payload.title &&
@@ -28,7 +28,7 @@ const savedArticlesSlicer = createSlice({
         };
       }
     },
-    removeArticleById: (state, {payload}) => {
+    removeSavedArticleById: (state, {payload}) => {
       const copyArticles = [...state.savedArticles];
       copyArticles.splice(payload, 1);
       return {
@@ -36,10 +36,17 @@ const savedArticlesSlicer = createSlice({
         savedArticles: copyArticles,
       };
     },
+    removeAllSavedArticles: state => {
+      return {
+        ...state,
+        savedArticles: [],
+      };
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const {addArticle, removeArticleById} = savedArticlesSlicer.actions;
+export const {addSavedArticle, removeSavedArticleById, removeAllSavedArticles} =
+  savedArticlesSlicer.actions;
 
 export default savedArticlesSlicer.reducer;

@@ -22,7 +22,7 @@ export default function Settings({navigation}) {
           <RectButton
             onPress={() => navigation.navigate('SavedArticles')}
             style={styles.sectionRow}>
-            <Text style={styles.sectionTitle}>Saved Stories</Text>
+            <Text style={styles.sectionTitle}>Saved Articles</Text>
             <Text style={styles.sectionSubTitle}>
               Find your saved articles here
             </Text>

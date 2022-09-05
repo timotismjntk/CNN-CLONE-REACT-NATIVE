@@ -2,13 +2,13 @@ import React from 'react';
 import {StyleSheet, Linking, Image, Text, View} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {addArticle} from '../redux/reducer/savedArticles';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {windowWidth} from '../utils';
 import {color} from '../utils/theme';
 
 // import action redux;
+import {addSavedArticle} from '../redux/reducer/savedArticles';
 
 export default function News({item, index}) {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ export default function News({item, index}) {
             style={styles.bookmarkButton}
             onPress={() =>
               dispatch(
-                addArticle({
+                addSavedArticle({
                   ...item,
                   savedAt: new Intl.DateTimeFormat('en-US', {
                     month: 'long',
