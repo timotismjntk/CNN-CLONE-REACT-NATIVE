@@ -5,6 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 // import components
 import SavedArticleItem from '../../components/SavedArticleItem';
+import NoResult from '../../components/NoResult';
 
 import {windowWidth, windowHeight} from '../../utils';
 
@@ -21,6 +22,7 @@ export default function SavedArticles({navigation}) {
         renderItem={props => (
           <SavedArticleItem {...props} navigation={navigation} />
         )}
+        ListEmptyComponent={NoResult}
       />
     </SafeAreaView>
   );

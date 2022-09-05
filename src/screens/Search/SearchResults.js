@@ -16,6 +16,7 @@ import {RectButton} from 'react-native-gesture-handler';
 
 // import components
 import SearchResultsItem from '../../components/SearchResultsItem';
+import NoResult from '../../components/NoResult';
 
 import {windowWidth, windowHeight} from '../../utils';
 import {color} from '../../utils/theme';
@@ -31,7 +32,6 @@ export default function SearchResults({navigation, route}) {
   const [searchValue, setSearchValue] = useState(route?.params?.query || '');
   const {searchNews: data, isLoadingSearchNews} =
     useSelector(state => state.search) || {};
-
   useEffect(() => {
     dispatch(searchNews(route?.params?.query));
     const backHandler = BackHandler.addEventListener(
@@ -95,6 +95,7 @@ export default function SearchResults({navigation, route}) {
               </Text>
             </View>
           }
+          ListEmptyComponent={<NoResult title="No Search Results" />}
           stickyHeaderIndices={[0]}
           contentContainerStyle={styles.flatlistContainer}
         />

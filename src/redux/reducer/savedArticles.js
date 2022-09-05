@@ -15,17 +15,11 @@ const savedArticlesSlicer = createSlice({
           article.publishedAt === payload.publishedAt,
       );
       if (findArticle > -1) {
+        const copyArticles = [...state.savedArticles];
+        copyArticles.splice(findArticle, 1);
         return {
           ...state,
-          savedArticles: [...state.savedArticles].reduce(
-            (result, item, index) => {
-              if (index !== findArticle) {
-                result.push(item);
-              }
-              return result;
-            },
-            [],
-          ),
+          savedArticles: copyArticles,
         };
       } else {
         return {
@@ -34,10 +28,12 @@ const savedArticlesSlicer = createSlice({
         };
       }
     },
-    removeArticleById: (state, action) => {
+    removeArticleById: (state, {payload}) => {
+      const copyArticles = [...state.savedArticles];
+      copyArticles.splice(payload, 1);
       return {
         ...state,
-        savedArticles: [],
+        savedArticles: copyArticles,
       };
     },
   },

@@ -1,20 +1,27 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, Linking} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
+import Animated, {
+  SlideInLeft,
+  Layout,
+  SlideOutLeft,
+} from 'react-native-reanimated';
 import {useDispatch} from 'react-redux';
-import {addRecentSearch} from '../redux/reducer/search';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+import {removeArticleById} from '../redux/reducer/savedArticles';
 
 import {windowWidth} from '../utils';
 
 export default function SavedArticleItem({item, index, navigation}) {
   const dispatch = useDispatch();
-
+  const RectButtonAnimated = Animated.createAnimatedComponent(RectButton);
   return (
-    <RectButton
-      onPress={() => {
-        navigation.navigate('SearchResults', {query: item});
-        dispatch(addRecentSearch(item));
-      }}
+    <RectButtonAnimated
+      entering={SlideInLeft.delay(index * 100)}
+      exiting={SlideOutLeft}
+      layout={Layout.springify()}
+      onPress={() => Linking.openURL(item.url)}
       style={styles.container}
       key={index}>
       <View style={styles.imageContainer}>
@@ -22,11 +29,19 @@ export default function SavedArticleItem({item, index, navigation}) {
       </View>
       <View style={styles.contentWrapper}>
         <Text style={styles.title}>{item?.title || ''}</Text>
-        {item?.savedAt && (
-          <Text style={styles.savedOn}>Saved on {item?.savedAt || ''}</Text>
-        )}
+        <View style={styles.infoWrapper}>
+          <Text style={styles.savedOn}>
+            {item?.savedAt && `Saved on  ${item?.savedAt}`}
+          </Text>
+          <MaterialIcons
+            name="delete"
+            size={windowWidth * 0.062}
+            color="black"
+            onPress={() => dispatch(removeArticleById(index))}
+          />
+        </View>
       </View>
-    </RectButton>
+    </RectButtonAnimated>
   );
 }
 
@@ -53,6 +68,10 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
+  },
+  infoWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   savedOn: {
     color: 'grey',

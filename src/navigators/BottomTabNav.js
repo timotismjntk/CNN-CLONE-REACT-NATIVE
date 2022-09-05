@@ -88,7 +88,19 @@ export default function RootNavigator() {
               color={bottomColor}
             />
           ),
+          tabBarLabel: 'Settings',
           headerShown: false,
+          headerTitle: 'Search',
+          headerTintColor: 'white',
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: color,
+          },
+          headerLeft: null,
+          tabBarLabelStyle: {
+            fontSize: windowWidth * 0.034,
+            marginBottom: '2%',
+          },
         }}
         name="SettingsNavigator"
         component={SettingsNavigator}
