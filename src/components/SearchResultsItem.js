@@ -1,10 +1,14 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {StyleSheet, Image, Text, View, Linking} from 'react-native';
+import {StyleSheet, Text, View, Linking} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import {windowWidth} from '../utils';
 import {color} from '../utils/theme';
+
+// import components
+import FastImageComponent from './FastImageComponent';
 
 export default function SearchResultsItem({item, index}) {
   return (
@@ -27,7 +31,10 @@ export default function SearchResultsItem({item, index}) {
           </Text>
         </View>
         <View style={styles.imageWrapper}>
-          <Image style={styles.image} source={{uri: item?.urlToImage}} />
+          <FastImageComponent
+            source={item.urlToImage}
+            style={{resizeMode: 'center'}}
+          />
         </View>
         <MaterialIcons
           name="menu-book"
@@ -64,11 +71,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1 / 2,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'center',
   },
   publishedAt: {
     color: 'rgba(0,0,0,0.5)',

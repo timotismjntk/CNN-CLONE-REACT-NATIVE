@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, Linking} from 'react-native';
+import {StyleSheet, Text, View, Linking} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import Animated, {
   SlideInLeft,
@@ -13,6 +13,9 @@ import {removeSavedArticleById} from '../redux/reducer/savedArticles';
 
 import {windowWidth} from '../utils';
 
+// import components
+import FastImageComponent from './FastImageComponent';
+
 export default function SavedArticleItem({item, index, navigation}) {
   const dispatch = useDispatch();
   const RectButtonAnimated = Animated.createAnimatedComponent(RectButton);
@@ -25,7 +28,7 @@ export default function SavedArticleItem({item, index, navigation}) {
       style={styles.container}
       key={index}>
       <View style={styles.imageContainer}>
-        <Image style={styles.image} source={{uri: item?.urlToImage}} />
+        <FastImageComponent source={item.urlToImage} />
       </View>
       <View style={styles.contentWrapper}>
         <Text style={styles.title}>{item?.title || ''}</Text>
@@ -64,10 +67,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: windowWidth * 0.27,
     height: windowWidth * 0.2,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
   },
   infoWrapper: {
     flexDirection: 'row',

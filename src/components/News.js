@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Linking, Image, Text, View} from 'react-native';
+import {StyleSheet, Linking, Text, View} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -10,12 +10,15 @@ import {color} from '../utils/theme';
 // import action redux;
 import {addSavedArticle} from '../redux/reducer/savedArticles';
 
+// import components;
+import FastImageComponent from './FastImageComponent';
+
 export default function News({item, index}) {
   const dispatch = useDispatch();
   const {savedArticles} = useSelector(state => state.savedArticles) || {};
 
   return (
-    <View key={index} style={styles.container}>
+    <View style={styles.container}>
       <RectButton
         // onPress={() => Linking.openURL(item.url)}
         rippleColor={color}
@@ -23,11 +26,7 @@ export default function News({item, index}) {
       />
       <View style={styles.imageHeaderWrapper}>
         {item.urlToImage?.length > 0 ? (
-          <Image
-            resizeMethod="resize"
-            style={styles.imageHeader}
-            source={{uri: item.urlToImage}}
-          />
+          <FastImageComponent source={item.urlToImage} />
         ) : (
           <Text style={styles.noImage}>No Image</Text>
         )}
@@ -86,6 +85,7 @@ const styles = StyleSheet.create({
   container: {
     width: windowWidth * 0.94,
     height: windowWidth * 0.7,
+    alignSelf: 'center',
     backgroundColor: 'white',
     marginBottom: '3%',
     elevation: 3,
@@ -95,10 +95,6 @@ const styles = StyleSheet.create({
     height: windowWidth * 0.6,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  imageHeader: {
-    width: '100%',
-    height: '100%',
   },
   button: {
     position: 'absolute',

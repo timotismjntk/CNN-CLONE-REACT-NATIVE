@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useMemo, useCallback} from 'react';
-import {FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {RectButton} from 'react-native-gesture-handler';
+import {FlashList} from '@shopify/flash-list';
 
 // import components
 import RecentSearch from '../../components/RecentSearch';
@@ -49,7 +50,7 @@ export default function Search({navigation}) {
           <Text style={styles.cancelSearchPlaceHolder}>Cancel</Text>
         </RectButton>
       </View>
-      <FlatList
+      <FlashList
         data={memoizedValue}
         renderItem={({item, index}) => (
           <RecentSearch item={item} index={index} navigation={navigation} />
@@ -67,7 +68,7 @@ export default function Search({navigation}) {
             </RectButton>
           </View>
         }
-        contentContainerStyle={styles.flatlistContainer}
+        estimatedItemSize={windowHeight * 0.1}
       />
     </SafeAreaView>
   );
@@ -109,10 +110,6 @@ const styles = StyleSheet.create({
     color: 'rgba(0,0,0,0.7)',
     fontSize: windowWidth * 0.034,
     fontWeight: '600',
-  },
-  flatlistContainer: {
-    width: '100%',
-    // paddingHorizontal: windowWidth * 0.02,
   },
   recentSearchContainer: {
     flexDirection: 'row',

@@ -1,7 +1,8 @@
 import React, {useEffect, useMemo} from 'react';
-import {FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
+import {RefreshControl, StyleSheet, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
+import {FlashList} from '@shopify/flash-list';
 
 import {windowWidth, windowHeight} from '../../utils';
 import {color} from '../../utils/theme';
@@ -25,7 +26,7 @@ export default function Entertainment({navigation}) {
 
   return (
     <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.container}>
-      <FlatList
+      <FlashList
         data={memoizedValue}
         refreshControl={
           <RefreshControl
@@ -44,6 +45,7 @@ export default function Entertainment({navigation}) {
             ]}
           />
         }
+        estimatedItemSize={windowWidth * 0.7}
         renderItem={props => <News {...props} />}
         keyExtractor={(item, index) =>
           String(item?.publishedAt) + index?.toString()
@@ -59,10 +61,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   flatlistContainer: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: windowWidth * 0.08,
     paddingTop: '3%',
   },
 });

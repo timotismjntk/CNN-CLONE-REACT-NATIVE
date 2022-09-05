@@ -1,10 +1,11 @@
 import React, {useMemo} from 'react';
-import {StyleSheet, FlatList, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {RectButton} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated';
+import {FlashList} from '@shopify/flash-list';
 
 // import components
 import SavedArticleItem from '../../components/SavedArticleItem';
@@ -24,12 +25,13 @@ export default function SavedArticles({navigation}) {
 
   return (
     <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.container}>
-      <FlatList
+      <FlashList
         data={memoizedValue}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         renderItem={props => (
           <SavedArticleItem {...props} navigation={navigation} />
         )}
+        estimatedItemSize={windowHeight * 0.3}
         ListEmptyComponent={NoResult}
       />
       {memoizedValue?.length > 0 && (

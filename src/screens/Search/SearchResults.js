@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useMemo, useEffect, useCallback} from 'react';
 import {
-  FlatList,
   StyleSheet,
   BackHandler,
   Text,
@@ -13,6 +12,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {RectButton} from 'react-native-gesture-handler';
+import {FlashList} from '@shopify/flash-list';
 
 // import components
 import SearchResultsItem from '../../components/SearchResultsItem';
@@ -81,24 +81,23 @@ export default function SearchResults({navigation, route}) {
           <ActivityIndicator size="large" color={color} />
         </View>
       ) : (
-        <FlatList
-          data={memoizedArticle}
-          renderItem={SearchResultsItem}
-          keyExtractor={(item, index) =>
-            String(item?.publishedAt) + index?.toString()
-          }
-          ItemSeparatorComponent={() => <View style={styles.separator} />}
-          ListHeaderComponent={
-            <View style={styles.recentSearchContainer}>
-              <Text style={styles.recentSearch}>
-                {memoizedArticle?.length} Results for "{searchValue}"
-              </Text>
-            </View>
-          }
-          ListEmptyComponent={<NoResult title="No Search Results" />}
-          stickyHeaderIndices={[0]}
-          contentContainerStyle={styles.flatlistContainer}
-        />
+        <>
+          <View style={styles.recentSearchContainer}>
+            <Text style={styles.recentSearch}>
+              {memoizedArticle?.length} Results for "{searchValue}"
+            </Text>
+          </View>
+          <FlashList
+            data={memoizedArticle}
+            renderItem={SearchResultsItem}
+            keyExtractor={(item, index) =>
+              String(item?.publishedAt) + index?.toString()
+            }
+            ItemSeparatorComponent={() => <View style={styles.separator} />}
+            estimatedItemSize={windowHeight * 0.13}
+            ListEmptyComponent={<NoResult title="No Search Results" />}
+          />
+        </>
       )}
     </SafeAreaView>
   );
@@ -145,9 +144,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  flatlistContainer: {
-    width: '100%',
   },
   separator: {
     borderWidth: windowHeight * 0.0005,
