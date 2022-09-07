@@ -10,9 +10,9 @@ import {color} from '../utils/theme';
 // import navigators
 import BottomTabNav from './BottomTabNav';
 
-export default function RootNavigator() {
+export default function RootNavigator({hideBootSplash}) {
   return (
-    <NavigationContainer>
+    <NavigationContainer onReady={() => hideBootSplash()}>
       <StatusBar animated={true} translucent backgroundColor={color} />
       <Stack.Navigator>
         <Stack.Screen
