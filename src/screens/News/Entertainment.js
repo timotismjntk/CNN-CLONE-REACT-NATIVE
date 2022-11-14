@@ -45,11 +45,9 @@ export default function Entertainment({navigation}) {
             ]}
           />
         }
-        estimatedItemSize={windowWidth * 0.7}
+        estimatedItemSize={windowWidth * 0.94 * windowWidth * 0.7}
         renderItem={props => <News {...props} />}
-        keyExtractor={(item, index) =>
-          String(item?.publishedAt) + index?.toString()
-        }
+        keyExtractor={(item, index) => String(item?.publishedAt)}
         contentContainerStyle={styles.flatlistContainer}
       />
     </SafeAreaView>

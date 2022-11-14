@@ -82,20 +82,20 @@ export default function SearchResults({navigation, route}) {
         </View>
       ) : (
         <>
-          <View style={styles.recentSearchContainer}>
-            <Text style={styles.recentSearch}>
+          <View style={styles.searchResultContainer}>
+            <Text style={styles.searchResult}>
               {memoizedArticle?.length} Results for "{searchValue}"
             </Text>
           </View>
           <FlashList
             data={memoizedArticle}
-            renderItem={SearchResultsItem}
-            keyExtractor={(item, index) =>
-              String(item?.publishedAt) + index?.toString()
-            }
+            renderItem={({item, index}) => (
+              <SearchResultsItem item={item} index={index} />
+            )}
+            keyExtractor={(item, index) => index}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
-            estimatedItemSize={windowHeight * 0.13}
-            ListEmptyComponent={<NoResult title="No Search Results" />}
+            estimatedItemSize={windowHeight * 0.13 * windowWidth * 0.9}
+            ListEmptyComponent={<NoResult title="No Results" />}
           />
         </>
       )}
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     borderWidth: windowHeight * 0.0005,
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  recentSearchContainer: {
+  searchResultContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: '4%',
     backgroundColor: 'white',
   },
-  recentSearch: {
+  searchResult: {
     color: 'rgba(0,0,0,0.8)',
     fontSize: windowWidth * 0.035,
   },

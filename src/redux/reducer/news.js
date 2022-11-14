@@ -21,7 +21,7 @@ const initialState = {
 export const topNews = createAsyncThunk(
   'news/topNews',
   async (
-    params = '?apiKey=445938e7b4214f4988780151868665cc&country=us&language=en&pageSize=50&page=1',
+    params = '?apiKey=445938e7b4214f4988780151868665cc&country=us&language=en&pageSize=100&page=1',
   ) => {
     // top-headlines?country=us
     const {data} = await http('https://newsapi.org/v2/top-headlines').get(
@@ -34,7 +34,7 @@ export const topNews = createAsyncThunk(
 export const generalNews = createAsyncThunk(
   'news/generalNews',
   async (
-    params = '?apiKey=445938e7b4214f4988780151868665cc&category=general&language=en&pageSize=50&page=1',
+    params = '?apiKey=445938e7b4214f4988780151868665cc&category=general&language=en&pageSize=100&page=1',
   ) => {
     const {data} = await http('https://newsapi.org/v2/top-headlines').get(
       params,
@@ -46,7 +46,7 @@ export const generalNews = createAsyncThunk(
 export const sportNews = createAsyncThunk(
   'news/sportNews',
   async (
-    params = '?apiKey=445938e7b4214f4988780151868665cc&category=sports&language=en&pageSize=50&page=1',
+    params = '?apiKey=445938e7b4214f4988780151868665cc&category=sports&language=en&pageSize=100&page=1',
   ) => {
     const {data} = await http('https://newsapi.org/v2/top-headlines').get(
       params,
@@ -58,7 +58,7 @@ export const sportNews = createAsyncThunk(
 export const technologyNews = createAsyncThunk(
   'news/technologyNews',
   async (
-    params = '?apiKey=445938e7b4214f4988780151868665cc&category=technology&language=en&pageSize=50&page=1',
+    params = '?apiKey=445938e7b4214f4988780151868665cc&category=technology&language=en&pageSize=100&page=1',
   ) => {
     const {data} = await http('https://newsapi.org/v2/top-headlines').get(
       params,
@@ -70,7 +70,7 @@ export const technologyNews = createAsyncThunk(
 export const scienceNews = createAsyncThunk(
   'news/scienceNews',
   async (
-    params = '?apiKey=445938e7b4214f4988780151868665cc&category=science&language=en&pageSize=50&page=1',
+    params = '?apiKey=445938e7b4214f4988780151868665cc&category=science&language=en&pageSize=100&page=1',
   ) => {
     const {data} = await http('https://newsapi.org/v2/top-headlines').get(
       params,
@@ -82,7 +82,7 @@ export const scienceNews = createAsyncThunk(
 export const entertainmentNews = createAsyncThunk(
   'news/entertainmentNews',
   async (
-    params = '?apiKey=445938e7b4214f4988780151868665cc&category=entertainment&language=en&pageSize=50&page=1',
+    params = '?apiKey=445938e7b4214f4988780151868665cc&category=entertainment&language=en&pageSize=100&page=1',
   ) => {
     const {data} = await http('https://newsapi.org/v2/top-headlines').get(
       params,
@@ -94,7 +94,7 @@ export const entertainmentNews = createAsyncThunk(
 export const businessNews = createAsyncThunk(
   'news/businessNews',
   async (
-    params = '?apiKey=445938e7b4214f4988780151868665cc&category=business&language=en&pageSize=50&page=1',
+    params = '?apiKey=445938e7b4214f4988780151868665cc&category=business&language=en&pageSize=100&page=1',
   ) => {
     const {data} = await http('https://newsapi.org/v2/top-headlines').get(
       params,

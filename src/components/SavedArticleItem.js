@@ -16,17 +16,16 @@ import {windowWidth} from '../utils';
 // import components
 import FastImageComponent from './FastImageComponent';
 
-export default function SavedArticleItem({item, index, navigation}) {
+export default function SavedArticleItem({item, index}) {
   const dispatch = useDispatch();
   const RectButtonAnimated = Animated.createAnimatedComponent(RectButton);
   return (
     <RectButtonAnimated
       entering={SlideInLeft.delay(index * 100)}
-      exiting={SlideOutLeft}
+      exiting={SlideOutLeft.delay(index * 100)}
       layout={Layout.springify()}
       onPress={() => Linking.openURL(item.url)}
-      style={styles.container}
-      key={index}>
+      style={styles.container}>
       <View style={styles.imageContainer}>
         <FastImageComponent source={item.urlToImage} />
       </View>
@@ -40,7 +39,9 @@ export default function SavedArticleItem({item, index, navigation}) {
             name="delete"
             size={windowWidth * 0.062}
             color="black"
-            onPress={() => dispatch(removeSavedArticleById(index))}
+            onPress={() => {
+              dispatch(removeSavedArticleById(index));
+            }}
           />
         </View>
       </View>

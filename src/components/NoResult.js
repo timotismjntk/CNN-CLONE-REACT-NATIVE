@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, memo} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Lottie from 'lottie-react-native';
 import Animated, {FadeInUp, FadeInDown} from 'react-native-reanimated';
 
 import {windowWidth, windowHeight} from '../utils';
 
-export default function NoResult({title = 'No Saved Articles Found'}) {
+export default memo(function NoResult({title = 'No Saved Articles Found'}) {
   const [finishAnimation, setFinishAnimation] = useState(false);
   useEffect(() => {
     return () => {
@@ -35,7 +35,7 @@ export default function NoResult({title = 'No Saved Articles Found'}) {
       )}
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

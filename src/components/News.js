@@ -20,7 +20,7 @@ export default function News({item, index}) {
   return (
     <View style={styles.container}>
       <RectButton
-        // onPress={() => Linking.openURL(item.url)}
+        onPress={() => Linking.openURL(item.url)}
         rippleColor={color}
         style={styles.button}
       />

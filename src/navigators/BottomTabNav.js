@@ -1,8 +1,7 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {BottomFabBar} from 'rn-wave-bottom-bar';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {RectButton} from 'react-native-gesture-handler';
 
 import {windowWidth, windowHeight} from '../utils';
 import {color} from '../utils/theme';
@@ -25,8 +24,12 @@ export default function RootNavigator() {
         tabBarHideOnKeyboard: true,
         lazy: true,
         tabBarStyle: {
-          height: windowHeight * 0.085,
+          height: windowHeight * 0.1,
         },
+        tabBarItemStyle: {
+          paddingVertical: '2%',
+        },
+        tabBarButton: props => <RectButton rippleColor={color} {...props} />,
       }}>
       <Tab.Screen
         options={{
@@ -43,7 +46,6 @@ export default function RootNavigator() {
           tabBarLabel: 'Home',
           tabBarLabelStyle: {
             fontSize: windowWidth * 0.034,
-            marginBottom: '2%',
           },
         }}
         name="UserNavigator"
@@ -71,7 +73,6 @@ export default function RootNavigator() {
           tabBarLabel: 'Search',
           tabBarLabelStyle: {
             fontSize: windowWidth * 0.034,
-            marginBottom: '2%',
           },
         }}
         name="SearchNavigator"
@@ -99,7 +100,6 @@ export default function RootNavigator() {
           headerLeft: null,
           tabBarLabelStyle: {
             fontSize: windowWidth * 0.034,
-            marginBottom: '2%',
           },
         }}
         name="SettingsNavigator"

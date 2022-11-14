@@ -29,7 +29,7 @@ export default function Home({navigation}) {
           textTransform: 'capitalize',
           fontWeight: 'bold',
         },
-        tabBarItemStyle: {width: windowWidth * 0.28},
+        tabBarItemStyle: {width: 'auto'},
       }}>
       <TopTab.Screen
         name="TopNews"

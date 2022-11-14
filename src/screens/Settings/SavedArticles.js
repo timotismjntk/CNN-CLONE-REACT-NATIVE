@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useRef} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -20,18 +20,19 @@ export default function SavedArticles({navigation}) {
   const RectButtonAnimated = Animated.createAnimatedComponent(RectButton);
   const dispatch = useDispatch();
   const {savedArticles} = useSelector(state => state.savedArticles) || {};
+  const listRef = useRef(null);
 
   const memoizedValue = useMemo(() => savedArticles || [], [savedArticles]);
 
   return (
     <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.container}>
       <FlashList
+        ref={listRef}
         data={memoizedValue}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
-        renderItem={props => (
-          <SavedArticleItem {...props} navigation={navigation} />
-        )}
-        estimatedItemSize={windowHeight * 0.3}
+        renderItem={props => <SavedArticleItem {...props} />}
+        keyExtractor={(item, index) => item?.author || index}
+        estimatedItemSize={windowHeight * 0.3 * windowWidth * 0.9}
         ListEmptyComponent={NoResult}
       />
       {memoizedValue?.length > 0 && (

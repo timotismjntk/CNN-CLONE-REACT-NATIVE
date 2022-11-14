@@ -4,7 +4,7 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {RectButton} from 'react-native-gesture-handler';
+import {FlatList, RectButton} from 'react-native-gesture-handler';
 import {FlashList} from '@shopify/flash-list';
 
 // import components
@@ -55,9 +55,7 @@ export default function Search({navigation}) {
         renderItem={({item, index}) => (
           <RecentSearch item={item} index={index} navigation={navigation} />
         )}
-        keyExtractor={(item, index) =>
-          String(item?.publishedAt) + index?.toString()
-        }
+        keyExtractor={(item, index) => index}
         ListHeaderComponent={
           <View style={styles.recentSearchContainer}>
             <Text style={styles.recentSearch}>Recent Searches</Text>
@@ -68,7 +66,7 @@ export default function Search({navigation}) {
             </RectButton>
           </View>
         }
-        estimatedItemSize={windowHeight * 0.1}
+        estimatedItemSize={windowWidth * 0.9 * windowHeight * 0.05}
       />
     </SafeAreaView>
   );
@@ -77,6 +75,8 @@ export default function Search({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: windowHeight,
+    width: '100%',
   },
   searchbarContainer: {
     flexDirection: 'row',

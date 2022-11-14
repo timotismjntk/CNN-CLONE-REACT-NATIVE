@@ -4,7 +4,7 @@ import {StyleSheet, Text, View, Linking} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import {windowWidth} from '../utils';
+import {windowWidth, windowHeight} from '../utils';
 import {color} from '../utils/theme';
 
 // import components
@@ -15,8 +15,7 @@ export default function SearchResultsItem({item, index}) {
     <RectButton
       onPress={() => Linking.openURL(item.url)}
       rippleColor={color}
-      style={styles.container}
-      key={index}>
+      style={styles.container}>
       <View style={styles.contentWrapper}>
         <View style={styles.titleAndDateWrapper}>
           <Text style={styles.title}>{item?.title || ''}</Text>
@@ -51,6 +50,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: '3.5%',
     paddingVertical: '3%',
+    flex: 1,
+    minHeight: windowHeight * 0.13,
+    width: '100%',
   },
   contentWrapper: {
     flexDirection: 'row',
@@ -66,11 +68,11 @@ const styles = StyleSheet.create({
     paddingRight: '2%',
   },
   imageWrapper: {
-    width: windowWidth * 0.18,
+    width: windowWidth * 0.13,
     height: windowWidth * 0.1,
+    marginRight: '3%',
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1 / 2,
   },
   publishedAt: {
     color: 'rgba(0,0,0,0.5)',
