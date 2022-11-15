@@ -3,6 +3,7 @@ import React from 'react';
 import {LogBox} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {PersistGate} from 'redux-persist/integration/react';
+import Toast from 'react-native-toast-message';
 
 // navigationContainer
 import Navigator from './src/navigators/Navigator';
@@ -20,6 +21,7 @@ export default function App() {
       <PersistGate loading={null} persistor={persistor}>
         <SafeAreaProvider>
           <Navigator />
+          <Toast />
         </SafeAreaProvider>
       </PersistGate>
     </Provider>

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {StyleSheet, Linking, Text, View} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
+import Toast from 'react-native-toast-message';
 
 import {windowWidth} from '../utils';
 import {color} from '../utils/theme';
@@ -16,6 +17,14 @@ import FastImageComponent from './FastImageComponent';
 export default function News({item, index}) {
   const dispatch = useDispatch();
   const {savedArticles} = useSelector(state => state.savedArticles) || {};
+
+  const isSaved = useCallback(() => {
+    return savedArticles.find(
+      article =>
+        article.title === item.title &&
+        article.publishedAt === item.publishedAt,
+    );
+  }, [savedArticles, item]);
 
   return (
     <View style={styles.container}>
@@ -39,7 +48,7 @@ export default function News({item, index}) {
         <View style={styles.iconWrapper}>
           <RectButton
             style={styles.bookmarkButton}
-            onPress={() =>
+            onPress={() => {
               dispatch(
                 addSavedArticle({
                   ...item,
@@ -49,28 +58,16 @@ export default function News({item, index}) {
                     year: 'numeric',
                   }).format(new Date()),
                 }),
-              )
-            }>
+              );
+              Toast.show({
+                type: 'success',
+                text1: isSaved() ? 'Remove Succesfully' : 'Remove Succesfully',
+              });
+            }}>
             <MaterialIcons
-              name={
-                savedArticles.find(
-                  article =>
-                    article.title === item.title &&
-                    article.publishedAt === item.publishedAt,
-                )
-                  ? 'bookmark'
-                  : 'bookmark-outline'
-              }
+              name={isSaved() ? 'bookmark' : 'bookmark-outline'}
               size={windowWidth * 0.065}
-              color={
-                savedArticles.find(
-                  article =>
-                    article.title === item.title &&
-                    article.publishedAt === item.publishedAt,
-                )
-                  ? color
-                  : 'grey'
-              }
+              color={isSaved() ? color : 'grey'}
             />
           </RectButton>
           <View />

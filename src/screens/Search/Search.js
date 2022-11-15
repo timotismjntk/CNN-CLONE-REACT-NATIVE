@@ -4,7 +4,7 @@ import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {FlatList, RectButton} from 'react-native-gesture-handler';
+import {RectButton} from 'react-native-gesture-handler';
 import {FlashList} from '@shopify/flash-list';
 
 // import components

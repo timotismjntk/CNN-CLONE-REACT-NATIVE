@@ -24,7 +24,7 @@ export default function RootNavigator() {
         tabBarHideOnKeyboard: true,
         lazy: true,
         tabBarStyle: {
-          height: windowHeight * 0.1,
+          height: windowHeight * 0.085,
         },
         tabBarItemStyle: {
           paddingVertical: '2%',
