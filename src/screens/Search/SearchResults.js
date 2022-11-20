@@ -94,7 +94,7 @@ export default function SearchResults({navigation, route}) {
             )}
             keyExtractor={(item, index) => index}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
-            estimatedItemSize={windowHeight * 0.13 * windowWidth * 0.9}
+            estimatedItemSize={windowHeight * 0.05 + windowWidth}
             ListEmptyComponent={<NoResult title="No Results" />}
           />
         </>

@@ -2,6 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {RectButton} from 'react-native-gesture-handler';
+import Animated, {BounceIn} from 'react-native-reanimated';
 
 import {windowWidth, windowHeight} from '../utils';
 import {color} from '../utils/theme';
@@ -11,9 +12,12 @@ const Tab = createBottomTabNavigator();
 // import navigators
 import UserNavigator from './UserNavigator';
 import SearchNavigator from './SearchNavigator';
+import NotesNavigator from './NotesNavigator';
 import SettingsNavigator from './SettingsNavigator';
 
 export default function RootNavigator() {
+  const MaterialIconsAnimated = Animated.createAnimatedComponent(MaterialIcons);
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -24,7 +28,7 @@ export default function RootNavigator() {
         tabBarHideOnKeyboard: true,
         lazy: true,
         tabBarStyle: {
-          height: windowHeight * 0.085,
+          height: windowHeight * 0.08,
         },
         tabBarItemStyle: {
           paddingVertical: '2%',
@@ -34,10 +38,11 @@ export default function RootNavigator() {
       <Tab.Screen
         options={{
           tabBarIcon: ({focused, size, color: bottomColor}) => (
-            <MaterialIcons
+            <MaterialIconsAnimated
+              entering={focused && BounceIn}
               name="home"
               size={
-                focused ? size + windowWidth * 0.02 : size + windowWidth * 0.01
+                focused ? size + windowWidth * 0.015 : size + windowWidth * 0.01
               }
               color={bottomColor}
             />
@@ -45,7 +50,7 @@ export default function RootNavigator() {
           headerShown: false,
           tabBarLabel: 'Home',
           tabBarLabelStyle: {
-            fontSize: windowWidth * 0.034,
+            fontSize: windowWidth * 0.03,
           },
         }}
         name="UserNavigator"
@@ -55,10 +60,11 @@ export default function RootNavigator() {
       <Tab.Screen
         options={{
           tabBarIcon: ({focused, size, color: bottomColor}) => (
-            <MaterialIcons
+            <MaterialIconsAnimated
+              entering={focused && BounceIn}
               name="search"
               size={
-                focused ? size + windowWidth * 0.02 : size + windowWidth * 0.01
+                focused ? size + windowWidth * 0.015 : size + windowWidth * 0.01
               }
               color={bottomColor}
             />
@@ -72,7 +78,7 @@ export default function RootNavigator() {
           headerLeft: null,
           tabBarLabel: 'Search',
           tabBarLabelStyle: {
-            fontSize: windowWidth * 0.034,
+            fontSize: windowWidth * 0.03,
           },
         }}
         name="SearchNavigator"
@@ -81,10 +87,32 @@ export default function RootNavigator() {
       <Tab.Screen
         options={{
           tabBarIcon: ({focused, size, color: bottomColor}) => (
-            <MaterialIcons
+            <MaterialIconsAnimated
+              entering={focused && BounceIn}
+              name={focused ? 'bookmark' : 'bookmark-border'}
+              size={
+                focused ? size + windowWidth * 0.015 : size + windowWidth * 0.01
+              }
+              color={bottomColor}
+            />
+          ),
+          headerShown: false,
+          tabBarLabel: 'Notes',
+          tabBarLabelStyle: {
+            fontSize: windowWidth * 0.03,
+          },
+        }}
+        name="NotesNavigator"
+        component={NotesNavigator}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({focused, size, color: bottomColor}) => (
+            <MaterialIconsAnimated
+              entering={focused && BounceIn}
               name="person"
               size={
-                focused ? size + windowWidth * 0.02 : size + windowWidth * 0.01
+                focused ? size + windowWidth * 0.015 : size + windowWidth * 0.01
               }
               color={bottomColor}
             />
@@ -99,7 +127,7 @@ export default function RootNavigator() {
           },
           headerLeft: null,
           tabBarLabelStyle: {
-            fontSize: windowWidth * 0.034,
+            fontSize: windowWidth * 0.03,
           },
         }}
         name="SettingsNavigator"

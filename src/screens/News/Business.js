@@ -21,7 +21,13 @@ export default function Business({navigation}) {
     dispatch(businessNews());
   }, []);
 
-  const memoizedValue = useMemo(() => data?.articles || [], [data]);
+  const memoizedValue = useMemo(() => {
+    if (Array.isArray(data?.articles)) {
+      return data?.articles;
+    } else {
+      return [];
+    }
+  }, [data]);
 
   return (
     <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.container}>
@@ -44,9 +50,9 @@ export default function Business({navigation}) {
             ]}
           />
         }
-        estimatedItemSize={windowWidth * 0.94 * windowWidth * 0.7}
+        estimatedItemSize={windowWidth * 0.94 + windowWidth * 0.7}
         renderItem={props => <News {...props} />}
-        keyExtractor={(item, index) => String(item?.publishedAt)}
+        keyExtractor={(item, index) => String(item?.url || index)}
         contentContainerStyle={styles.flatlistContainer}
       />
     </SafeAreaView>

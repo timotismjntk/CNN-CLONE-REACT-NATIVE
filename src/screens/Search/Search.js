@@ -66,7 +66,7 @@ export default function Search({navigation}) {
             </RectButton>
           </View>
         }
-        estimatedItemSize={windowWidth * 0.9 * windowHeight * 0.05}
+        estimatedItemSize={windowWidth * 0.9 + windowHeight * 0.05}
       />
     </SafeAreaView>
   );

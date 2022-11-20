@@ -61,7 +61,10 @@ export default function News({item, index}) {
               );
               Toast.show({
                 type: 'success',
-                text1: isSaved() ? 'Remove Succesfully' : 'Remove Succesfully',
+                text1: 'Succes',
+                text2: isSaved()
+                  ? 'Article has been removed'
+                  : 'Article has been added',
               });
             }}>
             <MaterialIcons
