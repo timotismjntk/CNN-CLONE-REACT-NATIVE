@@ -51,6 +51,7 @@ export default function RootNavigator() {
           tabBarLabel: 'Home',
           tabBarLabelStyle: {
             fontSize: windowWidth * 0.03,
+            fontFamily: 'DMSans-Regular',
           },
         }}
         name="UserNavigator"
@@ -72,6 +73,9 @@ export default function RootNavigator() {
           headerTitle: 'Search',
           headerTintColor: 'white',
           headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontFamily: 'DMSans-Bold',
+          },
           headerStyle: {
             backgroundColor: color,
           },
@@ -79,6 +83,7 @@ export default function RootNavigator() {
           tabBarLabel: 'Search',
           tabBarLabelStyle: {
             fontSize: windowWidth * 0.03,
+            fontFamily: 'DMSans-Regular',
           },
         }}
         name="SearchNavigator"
@@ -100,6 +105,7 @@ export default function RootNavigator() {
           tabBarLabel: 'Notes',
           tabBarLabelStyle: {
             fontSize: windowWidth * 0.03,
+            fontFamily: 'DMSans-Regular',
           },
         }}
         name="NotesNavigator"
@@ -119,7 +125,6 @@ export default function RootNavigator() {
           ),
           tabBarLabel: 'Settings',
           headerShown: false,
-          headerTitle: 'Search',
           headerTintColor: 'white',
           headerTitleAlign: 'center',
           headerStyle: {
@@ -128,6 +133,7 @@ export default function RootNavigator() {
           headerLeft: null,
           tabBarLabelStyle: {
             fontSize: windowWidth * 0.03,
+            fontFamily: 'DMSans-Regular',
           },
         }}
         name="SettingsNavigator"

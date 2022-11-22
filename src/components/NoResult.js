@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: windowWidth * 0.05,
-    fontWeight: '500',
+    fontFamily: 'DMSans-Bold',
     color: 'black',
     top: -windowHeight * 0.05,
   },

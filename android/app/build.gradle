@@ -135,6 +135,13 @@ def reactNativeArchitectures() {
 }
 
 android {
+    //Exception java.lang.UnsatisfiedLinkError:
+    //at com.facebook.soloader.SoLoader.doLoadLibraryBySoName
+    packagingOptions { // react-native-java-lang-unsatisfiedlinkerror-couldnt-find-dso-to-load-libherm
+        pickFirst '**/libjsc.so'
+        pickFirst '**/libc++_shared.so'
+    }
+    //
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -162,7 +169,7 @@ android {
                     cppFlags "-std=c++17"
                     // Make sure this target name is the same you specify inside the
                     // src/main/jni/Android.mk file for the `LOCAL_MODULE` variable.
-                    targets "mesinabsensi_appmodules"
+                    targets "TimoNews_appmodules"
                 }
             }
         }
@@ -269,7 +276,7 @@ dependencies {
 
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-
+    implementation'com.facebook.soloader:soloader:0.9.0+' // react-native-java-lang-unsatisfiedlinkerror-couldnt-find-dso-to-load-libherm
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation "androidx.core:core-splashscreen:1.0.0-beta02"
     // Import the Firebase BoM
@@ -294,9 +301,9 @@ dependencies {
     }
 
     if (enableHermes) {
-        def hermesPath = "../../node_modules/hermes-engine/android/";
-        debugImplementation files(hermesPath + "hermes-debug.aar")
-        releaseImplementation files(hermesPath + "hermes-release.aar")
+        implementation("com.facebook.react:hermes-engine:+") {
+            exclude group: 'com.facebook.fbjni'
+        }
     } else {
         implementation jscFlavor
     }

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useMemo, useCallback} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
@@ -17,7 +18,6 @@ import {color} from '../../utils/theme';
 // import {clearRecentSearch, addRecentSearch} from '../../redux/reducer/search';
 
 export default function Notes({navigation}) {
-  const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState('');
   const [inputFocused, setInputFocused] = useState(false);
   const {notes} = useSelector(state => state.notes) || {};
@@ -52,7 +52,11 @@ export default function Notes({navigation}) {
         renderItem={({item}) => <NotesItem item={item} />}
         keyExtractor={(item, index) => item.savedAt}
         ListHeaderComponent={
-          <View style={styles.searchbarContainer}>
+          <View
+            style={[
+              styles.searchbarContainer,
+              {marginBottom: memoizedValue?.length > 0 ? '6%' : 0},
+            ]}>
             <View style={styles.searchbar}>
               <MaterialIcons
                 name="search"
@@ -103,7 +107,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: '3%',
     paddingVertical: '2%',
     backgroundColor: 'rgba(0,0,0,0.22)',
-    marginBottom: '6%',
   },
   searchbar: {
     flexDirection: 'row',
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
   cancelSearchPlaceHolder: {
     color: 'rgba(0,0,0,0.7)',
     fontSize: windowWidth * 0.034,
-    fontWeight: '600',
+    fontFamily: 'DMSans-Bold',
   },
   floatingButton: {
     width: windowWidth * 0.14,

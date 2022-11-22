@@ -5,11 +5,15 @@ import {createStackNavigator} from '@react-navigation/stack';
 import RNBootSplash from 'react-native-bootsplash';
 
 const Stack = createStackNavigator();
-import {horizontalTransition} from '../utils';
+import {horizontalTransition, verticalTransition} from '../utils';
 import {color} from '../utils/theme';
 
-// import navigators
+// import Bottomtabs navigator
 import BottomTabNav from './BottomTabNav';
+
+// import Notes screens
+import AddNotes from '../screens/Notes/AddNotes';
+import EditNotes from '../screens/Notes/EditNotes';
 
 export default function RootNavigator() {
   return (
@@ -21,6 +25,24 @@ export default function RootNavigator() {
           options={{...horizontalTransition, headerShown: false}}
           name="BottomTabNav"
           component={BottomTabNav}
+          lazy={true}
+        />
+        <Stack.Screen
+          options={{
+            ...verticalTransition,
+            headerShown: false,
+          }}
+          name="AddNotes"
+          component={AddNotes}
+          lazy={true}
+        />
+        <Stack.Screen
+          options={{
+            ...verticalTransition,
+            headerShown: false,
+          }}
+          name="EditNotes"
+          component={EditNotes}
           lazy={true}
         />
       </Stack.Navigator>

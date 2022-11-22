@@ -1,11 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {useCallback} from 'react';
 import {ScrollView, StyleSheet, Text, View, TextInput} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
+import Toast from 'react-native-toast-message';
+
+// import components
+import {TextEditor, Toolbar} from '../../components/TextEditor';
 
 import {windowWidth, windowHeight} from '../../utils';
 import {color} from '../../utils/theme';
@@ -15,6 +19,7 @@ import {editNotes} from '../../redux/reducer/notes';
 
 export default function EditNotes({route: {params}, navigation}) {
   const dispatch = useDispatch();
+  const richText = useRef(null);
   const [title, setTitle] = useState(params?.title || '');
   const [content, setContent] = useState(params?.content || '');
   const [isSaved, setIsSaved] = useState(false);
@@ -45,10 +50,15 @@ export default function EditNotes({route: {params}, navigation}) {
       }).format(new Date()),
     );
     setIsSaved(false);
+    Toast.show({
+      type: 'success',
+      text1: 'Sukses',
+      text2: 'Berhasil menyimpan catatan!',
+    });
   }, [title, content]);
 
   const isFilled = useCallback(() => {
-    return content?.trim()?.length > 0 && title?.trim()?.length > 0;
+    return title?.trim()?.length > 0;
   }, [content, title]);
 
   return (
@@ -62,20 +72,6 @@ export default function EditNotes({route: {params}, navigation}) {
           />
         </RectButton>
         <View style={styles.headerRight}>
-          {/* <RectButton>
-            <MaterialIcons
-              name="undo"
-              size={windowWidth * 0.07}
-              color="white"
-            />
-          </RectButton>
-          <RectButton style={styles.headerRightIcon}>
-            <MaterialIcons
-              name="redo"
-              size={windowWidth * 0.07}
-              color="white"
-            />
-          </RectButton> */}
           <RectButton
             onPress={editNotesFn}
             enabled={isFilled() && isSaved}
@@ -90,11 +86,13 @@ export default function EditNotes({route: {params}, navigation}) {
           </RectButton>
         </View>
       </View>
+      <Toolbar richTextRef={richText} />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <TextInput
           selectionColor={color}
           selectTextOnFocus={true}
           placeholder="Title"
+          multiline
           placeholderTextColor="grey"
           style={styles.title}
           value={title}
@@ -105,19 +103,11 @@ export default function EditNotes({route: {params}, navigation}) {
         />
         <View style={styles.infoWrapper}>
           <Text style={styles.date}>{editedAt || ''}</Text>
-          <View style={styles.separator} />
-          <Text style={styles.totalCharacter}>{content?.length} character</Text>
         </View>
-        <TextInput
-          value={content}
-          onChangeText={text => {
-            setContent(text);
-            setIsSaved(true);
-          }}
-          selectionColor={color}
-          selectTextOnFocus={true}
-          style={styles.content}
-          multiline
+        <TextEditor
+          initialContentHTML={content}
+          richTextRef={richText}
+          onChange={{setContent, setIsSaved}}
         />
       </ScrollView>
     </SafeAreaView>
@@ -150,7 +140,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'black',
     fontSize: windowWidth * 0.07,
-    fontWeight: 'bold',
+    fontFamily: 'DMSans-Bold',
     paddingHorizontal: '4%',
   },
   infoWrapper: {

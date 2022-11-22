@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   cancelSearchPlaceHolder: {
     color: 'rgba(0,0,0,0.7)',
     fontSize: windowWidth * 0.034,
-    fontWeight: '600',
+    fontFamily: 'DMSans-Bold',
   },
   recentSearchContainer: {
     flexDirection: 'row',
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   recentSearch: {
     color: 'grey',
     fontSize: windowWidth * 0.036,
-    fontWeight: '500',
+    fontFamily: 'DMSans-Bold',
   },
   clearButton: {
     padding: '1%',
@@ -131,6 +131,6 @@ const styles = StyleSheet.create({
   clear: {
     color: color,
     fontSize: windowWidth * 0.034,
-    fontWeight: '500',
+    fontFamily: 'DMSans-Bold',
   },
 });

@@ -1,13 +1,11 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-// import User screens
+// import Notes screens
 import Notes from '../screens/Notes/Notes';
-import AddNotes from '../screens/Notes/AddNotes';
-import EditNotes from '../screens/Notes/EditNotes';
 
 const Stack = createStackNavigator();
-import {verticalTransition, horizontalTransition} from '../utils';
+import {horizontalTransition} from '../utils';
 import {color} from '../utils/theme';
 
 export default function SearchNavigator() {
@@ -19,6 +17,9 @@ export default function SearchNavigator() {
           headerTitle: 'Notes',
           headerTintColor: 'white',
           headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontFamily: 'DMSans-Bold',
+          },
           headerStyle: {
             backgroundColor: color,
           },
@@ -26,24 +27,6 @@ export default function SearchNavigator() {
         }}
         name="Notes"
         component={Notes}
-        lazy={true}
-      />
-      <Stack.Screen
-        options={{
-          ...verticalTransition,
-          headerShown: false,
-        }}
-        name="AddNotes"
-        component={AddNotes}
-        lazy={true}
-      />
-      <Stack.Screen
-        options={{
-          ...verticalTransition,
-          headerShown: false,
-        }}
-        name="EditNotes"
-        component={EditNotes}
         lazy={true}
       />
     </Stack.Navigator>

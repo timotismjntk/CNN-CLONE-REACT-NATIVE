@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
   sectionHeaderTitle: {
     color: 'grey',
     fontSize: windowWidth * 0.034,
+    fontFamily: 'DMSans-Regular',
   },
   sectionRow: {
     marginTop: '3%',
@@ -99,10 +100,12 @@ const styles = StyleSheet.create({
   sectionTitle: {
     color: 'rgba(0,0,0,0.9)',
     fontSize: windowWidth * 0.039,
+    fontFamily: 'DMSans-Regular',
   },
   sectionSubTitle: {
     color: 'grey',
     fontSize: windowWidth * 0.032,
+    fontFamily: 'DMSans-Regular',
   },
   separator: {
     height: windowHeight * 0.001,
@@ -114,5 +117,6 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontSize: windowWidth * 0.032,
     paddingLeft: '1%',
+    fontFamily: 'DMSans-Regular',
   },
 });

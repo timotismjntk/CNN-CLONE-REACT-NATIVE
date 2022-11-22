@@ -27,7 +27,7 @@ export default function Home({navigation}) {
         tabBarLabelStyle: {
           fontSize: windowWidth * 0.032,
           textTransform: 'capitalize',
-          fontWeight: 'bold',
+          fontFamily: 'DMSans-Bold',
         },
         tabBarItemStyle: {width: 'auto'},
       }}>

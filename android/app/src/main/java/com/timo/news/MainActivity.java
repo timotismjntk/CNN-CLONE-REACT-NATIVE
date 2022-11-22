@@ -21,7 +21,7 @@ public class MainActivity extends ReactActivity {
   protected void onCreate(Bundle savedInstanceState) {
     androidx.core.splashscreen.SplashScreen.installSplashScreen(this);
     RNBootSplash.init(this); // <- initialize the splash screen
-    super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
+    super.onCreate(null); // or super.onCreate(null) with react-native-screens
   }
 
   /**

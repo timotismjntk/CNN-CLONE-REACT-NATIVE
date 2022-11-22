@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   cancelSearchPlaceHolder: {
     color: 'rgba(0,0,0,0.7)',
     fontSize: windowWidth * 0.034,
-    fontWeight: '600',
+    fontFamily: 'DMSans-Bold',
   },
   loadingIndicator: {
     flex: 1,
@@ -168,6 +168,6 @@ const styles = StyleSheet.create({
   clear: {
     color: color,
     fontSize: windowWidth * 0.034,
-    fontWeight: '500',
+    fontFamily: 'DMSans-Bold',
   },
 });

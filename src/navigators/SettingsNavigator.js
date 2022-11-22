@@ -18,6 +18,9 @@ export default function SettingsNavigator() {
           headerTitle: 'Settings',
           headerTintColor: 'white',
           headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontFamily: 'DMSans-Bold',
+          },
           headerStyle: {
             backgroundColor: color,
           },
@@ -38,6 +41,9 @@ export default function SettingsNavigator() {
           headerTitle: 'Saved Articles',
           headerTintColor: 'white',
           headerTitleAlign: 'center',
+          headerTitleStyle: {
+            fontFamily: 'DMSans-Bold',
+          },
           headerStyle: {
             backgroundColor: color,
           },

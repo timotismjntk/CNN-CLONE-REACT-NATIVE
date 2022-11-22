@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'rgba(0,0,0,0.8)',
     fontSize: windowWidth * 0.04,
-    fontWeight: '500',
+    fontFamily: 'DMSans-Bold',
   },
   imageContainer: {
     width: windowWidth * 0.27,
@@ -77,5 +77,6 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontSize: windowWidth * 0.032,
     marginTop: '1%',
+    fontFamily: 'DMSans-Regular',
   },
 });

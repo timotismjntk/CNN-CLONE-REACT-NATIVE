@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
   title: {
     color: 'rgba(0,0,0,0.8)',
     fontSize: windowWidth * 0.036,
-    fontWeight: 'bold',
+    fontFamily: 'DMSans-Bold',
   },
 });

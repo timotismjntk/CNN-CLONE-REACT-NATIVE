@@ -4,9 +4,7 @@ import {
   StatusBar,
   Modal as ReactModal,
   View,
-  Text,
   TouchableWithoutFeedback,
-  ActivityIndicator,
 } from 'react-native';
 import Lottie from 'lottie-react-native';
 

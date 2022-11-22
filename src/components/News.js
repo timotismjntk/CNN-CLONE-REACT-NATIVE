@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
   noImage: {
     color: 'grey',
     fontSize: windowWidth * 0.1,
+    fontFamily: 'DMSans-Regular',
   },
   titleWrapper: {
     position: 'absolute',
@@ -125,7 +126,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'white',
     fontSize: windowWidth * 0.054,
-    fontWeight: '500',
+    fontFamily: 'DMSans-Bold',
   },
   authorWrapper: {
     height: windowWidth * 0.1,
@@ -137,6 +138,7 @@ const styles = StyleSheet.create({
   author: {
     color: color,
     fontSize: windowWidth * 0.036,
+    fontFamily: 'DMSans-Regular',
   },
   iconWrapper: {
     flexDirection: 'row',

@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   title: {
     color: 'rgba(0,0,0,0.8)',
     fontSize: windowWidth * 0.036,
+    fontFamily: 'DMSans-Regular',
   },
   titleAndDateWrapper: {
     flex: 1,
@@ -78,6 +79,7 @@ const styles = StyleSheet.create({
     color: 'rgba(0,0,0,0.5)',
     fontSize: windowWidth * 0.028,
     marginTop: '3%',
+    fontFamily: 'DMSans-Regular',
   },
   button: {
     position: 'absolute',
