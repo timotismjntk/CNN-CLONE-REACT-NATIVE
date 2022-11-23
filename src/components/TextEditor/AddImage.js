@@ -12,6 +12,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import {windowWidth} from '../../utils';
+import {uploadPicture} from '../../helpers/firebase';
 
 export default function AddImage({open, fn}) {
   const cameraOptions = useRef({
@@ -20,12 +21,11 @@ export default function AddImage({open, fn}) {
     presentationStyle: 'popover',
     maxWidth: 500,
     maxHeight: 500,
-    quality: 1,
+    quality: 0.6,
     storageOptions: {
       skipBackup: true,
       path: 'images',
     },
-    includeBase64: true,
   }).current;
 
   const libraryOptions = useRef({
@@ -33,31 +33,25 @@ export default function AddImage({open, fn}) {
     presentationStyle: 'popover',
     maxWidth: 500,
     maxHeight: 500,
-    quality: 1,
+    quality: 0.6,
     storageOptions: {
       skipBackup: true,
       path: 'images',
     },
-    includeBase64: true,
   }).current;
 
   const addFotoByCamera = React.useCallback(async () => {
     try {
       const data = await launchCamera(cameraOptions);
       if (data?.assets?.length > 0) {
-        if (data?.assets[0]?.base64?.length > 0) {
-          fn({
-            status: false,
-            response: 'data:image/png;base64,' + data?.assets[0]?.base64,
-          });
-          console.log(
-            'base64',
-            data?.assets[0]?.base64?.length,
-            'fileSize',
-            data?.assets[0]?.fileSize,
-            data?.assets[0]?.height,
-            data?.assets[0]?.width,
-          );
+        if (data?.assets[0]?.uri?.length > 0) {
+          const response = await uploadPicture(data?.assets[0]);
+          if (response) {
+            fn({
+              status: false,
+              response: response,
+            });
+          }
         }
       }
     } catch (e) {}
@@ -67,11 +61,14 @@ export default function AddImage({open, fn}) {
     try {
       const data = await launchImageLibrary(libraryOptions);
       if (data?.assets?.length > 0) {
-        if (data?.assets[0]?.base64?.length > 0) {
-          fn({
-            status: false,
-            response: 'data:image/png;base64,' + data?.assets[0]?.base64,
-          });
+        if (data?.assets[0]?.uri?.length > 0) {
+          const response = await uploadPicture(data?.assets[0]);
+          if (response) {
+            fn({
+              status: false,
+              response: response,
+            });
+          }
         }
       }
     } catch (e) {}
