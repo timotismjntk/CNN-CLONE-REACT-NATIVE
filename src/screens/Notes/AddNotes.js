@@ -32,10 +32,12 @@ export default function AddNotes({navigation}) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [isSaved, setIsSaved] = useState(false);
+  const {notes} = useSelector(state => state.notes) || {};
 
   const addToNotes = useCallback(() => {
     dispatch(
       addNotes({
+        id: notes?.length,
         title,
         content,
         savedAt: new Intl.DateTimeFormat('id', {
@@ -60,7 +62,7 @@ export default function AddNotes({navigation}) {
       text1: 'Sukses',
       text2: 'Berhasil membuat catatan baru!',
     });
-  }, [title, content]);
+  }, [title, content, notes]);
 
   const isFilled = useCallback(() => {
     return content?.trim()?.length > 0 && title?.trim()?.length > 0;
@@ -136,7 +138,6 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     backgroundColor: color,
-    marginTop: '8%',
     paddingVertical: '4%',
     paddingHorizontal: '5%',
     flexDirection: 'row',

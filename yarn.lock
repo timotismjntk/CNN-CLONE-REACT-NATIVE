@@ -6513,6 +6513,11 @@ react-native-codegen@^0.70.4:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-drag-sort@^2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/react-native-drag-sort/-/react-native-drag-sort-2.4.4.tgz#7c7aeea8729423a920b8db5900ea3c704ee1ff29"
+  integrity sha512-MixkgMzybt8tn9m850YK5VOSlicytV41mOp/b1gAE7cK94bou27ApvVJH9oCM61vY5EN6g9VT5PwLOahbYc+BQ==
+
 react-native-fast-image@^8.6.1:
   version "8.6.1"
   resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.6.1.tgz#6a3a11b8ebc7629919265d33a420a04d13c897e0"

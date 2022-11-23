@@ -28,9 +28,9 @@ const savedArticlesSlicer = createSlice({
         };
       }
     },
-    removeSavedArticleById: (state, {payload}) => {
+    removeSavedArticleById: (state, {payload: id}) => {
       const copyArticles = [...state.savedArticles];
-      copyArticles.splice(payload, 1);
+      copyArticles.splice(id, 1);
       return {
         ...state,
         savedArticles: copyArticles,

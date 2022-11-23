@@ -1,6 +1,7 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
 import {
+  CardStyleInterpolators,
   HeaderStyleInterpolators,
   TransitionSpecs,
 } from '@react-navigation/stack';
@@ -51,27 +52,8 @@ const verticalTransition = {
     open: TransitionSpecs.TransitionIOSSpec,
     close: TransitionSpecs.TransitionIOSSpec,
   },
-  headerStyleInterpolator: HeaderStyleInterpolators.forSlideUp,
-  cardStyleInterpolator: ({current, layouts}) => {
-    return {
-      cardStyle: {
-        transform: [
-          {
-            translateY: current.progress.interpolate({
-              inputRange: [0, 1],
-              outputRange: [layouts.screen.height, 0],
-            }),
-          },
-        ],
-      },
-      overlayStyle: {
-        opacity: current.progress.interpolate({
-          inputRange: [0, 10],
-          outputRange: [0, 0.5],
-        }),
-      },
-    };
-  },
+  headerStyleInterpolator: HeaderStyleInterpolators.forFade,
+  cardStyleInterpolator: CardStyleInterpolators.forModalPresentationIOS,
 };
 
 module.exports = {

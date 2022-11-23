@@ -6,7 +6,7 @@ import Settings from '../screens/Settings/Settings';
 import SavedArticles from '../screens/Settings/SavedArticles';
 
 const Stack = createStackNavigator();
-import {windowWidth, horizontalTransition} from '../utils';
+import {windowWidth, horizontalTransition, verticalTransition} from '../utils';
 import {color} from '../utils/theme';
 
 export default function SettingsNavigator() {
@@ -37,7 +37,9 @@ export default function SettingsNavigator() {
       />
       <Stack.Screen
         options={{
-          ...horizontalTransition,
+          ...verticalTransition,
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
           headerTitle: 'Saved Articles',
           headerTintColor: 'white',
           headerTitleAlign: 'center',

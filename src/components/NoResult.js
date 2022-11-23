@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     height: windowHeight,
-    backgroundColor: 'white',
   },
   title: {
     fontSize: windowWidth * 0.05,

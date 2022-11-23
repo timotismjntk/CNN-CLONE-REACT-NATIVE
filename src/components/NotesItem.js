@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {RectButton} from 'react-native-gesture-handler';
-import {WebView} from 'react-native-webview';
 
 import {windowWidth} from '../utils';
 
@@ -13,10 +12,10 @@ export default function NotesItem({item}) {
       onPress={() => navigation.navigate('EditNotes', item)}
       style={styles.container}>
       <Text numberOfLines={1} style={styles.title}>
-        {item.title}
+        {item?.title || ''}
       </Text>
       <Text numberOfLines={1} style={styles.editedAt}>
-        {item.editedAt}
+        {item?.editedAt || ''}
       </Text>
     </RectButton>
   );
@@ -24,11 +23,9 @@ export default function NotesItem({item}) {
 
 const styles = StyleSheet.create({
   container: {
-    width: windowWidth * 0.9,
-    alignSelf: 'center',
-    minHeight: windowWidth * 0.2,
+    width: windowWidth - windowWidth * 0.03 * 2,
+    minHeight: windowWidth * 0.18,
     backgroundColor: '#E5E5E5',
-    marginBottom: '3%',
     borderRadius: windowWidth * 0.03,
     justifyContent: 'space-around',
     paddingHorizontal: '4%',

@@ -45,7 +45,7 @@ export default function Toolbar({richTextRef}) {
     if (openModalVideo?.response?.length > 0) {
       richTextRef.current?.insertVideo(
         openModalVideo?.response,
-        'width: 98%; height=220;',
+        'width: 98%; height=100;',
       );
       setOpenModalVideo({
         status: false,

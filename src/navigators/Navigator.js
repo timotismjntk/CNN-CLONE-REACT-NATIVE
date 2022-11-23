@@ -19,7 +19,7 @@ export default function RootNavigator() {
   return (
     <NavigationContainer
       onReady={async () => await RNBootSplash.hide({fade: true})}>
-      <StatusBar animated={true} translucent backgroundColor={color} />
+      <StatusBar animated={true} translucent backgroundColor="transparent" />
       <Stack.Navigator>
         <Stack.Screen
           options={{...horizontalTransition, headerShown: false}}
@@ -31,6 +31,8 @@ export default function RootNavigator() {
           options={{
             ...verticalTransition,
             headerShown: false,
+            gestureEnabled: true,
+            cardOverlayEnabled: true,
           }}
           name="AddNotes"
           component={AddNotes}
@@ -40,6 +42,7 @@ export default function RootNavigator() {
           options={{
             ...verticalTransition,
             headerShown: false,
+            gestureEnabled: true,
           }}
           name="EditNotes"
           component={EditNotes}

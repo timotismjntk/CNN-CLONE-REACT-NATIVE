@@ -16,16 +16,28 @@ import {windowWidth} from '../../utils';
 export default function AddImage({open, fn}) {
   const cameraOptions = useRef({
     mediaType: 'photo',
-    cameraType: 'front',
+    cameraType: 'back',
     presentationStyle: 'popover',
-    quality: 0.3,
+    maxWidth: 500,
+    maxHeight: 500,
+    quality: 1,
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
     includeBase64: true,
   }).current;
 
   const libraryOptions = useRef({
     mediaType: 'photo',
     presentationStyle: 'popover',
-    quality: 0.3,
+    maxWidth: 500,
+    maxHeight: 500,
+    quality: 1,
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
     includeBase64: true,
   }).current;
 
@@ -38,6 +50,14 @@ export default function AddImage({open, fn}) {
             status: false,
             response: 'data:image/png;base64,' + data?.assets[0]?.base64,
           });
+          console.log(
+            'base64',
+            data?.assets[0]?.base64?.length,
+            'fileSize',
+            data?.assets[0]?.fileSize,
+            data?.assets[0]?.height,
+            data?.assets[0]?.width,
+          );
         }
       }
     } catch (e) {}

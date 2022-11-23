@@ -11,7 +11,10 @@ const notesSlicer = createSlice({
     addNotes: (state, {payload}) => {
       const oldNotes = [...state.notes];
       const findIfNotesIsAlreadyAdd = oldNotes.find(
-        note => note.savedAt === payload.savedAt,
+        note =>
+          note.savedAt === payload.savedAt &&
+          note.title === payload.title &&
+          note.content === payload.content,
       );
       if (findIfNotesIsAlreadyAdd) {
         return {
@@ -32,21 +35,26 @@ const notesSlicer = createSlice({
       }
     },
     editNotes: (state, {payload}) => {
-      const oldNotes = [...state.notes];
+      const filteredNotes = [...state.notes].filter(
+        note => note.id !== payload.id,
+      ); // first to remove the edited notes
+      const sortedNotes = [payload, ...filteredNotes]; // then concat the edited notes to be first index
       return {
         ...state,
-        notes: oldNotes.map(note => {
-          if (note.savedAt === payload.savedAt) {
-            return payload;
-          } else {
-            return note;
-          }
-        }),
+        notes: sortedNotes,
       };
     },
-    removeNotesById: (state, {payload}) => {
+    sortNotesByDragnDrop: (state, {payload}) => {
+      if (Array.isArray(payload) && payload?.length > 0) {
+        return {
+          ...state,
+          notes: payload,
+        };
+      }
+    },
+    removeNotesById: (state, {payload: id}) => {
       const oldNotes = [...state.notes];
-      oldNotes.splice(payload, 1);
+      oldNotes.splice(id, 1);
       return {
         ...state,
         notes: oldNotes,
@@ -62,7 +70,12 @@ const notesSlicer = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {addNotes, editNotes, removeNotesById, removeAllNotes} =
-  notesSlicer.actions;
+export const {
+  addNotes,
+  editNotes,
+  sortNotesByDragnDrop,
+  removeNotesById,
+  removeAllNotes,
+} = notesSlicer.actions;
 
 export default notesSlicer.reducer;
