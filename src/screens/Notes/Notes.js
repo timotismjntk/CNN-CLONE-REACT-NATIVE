@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useMemo, useCallback} from 'react';
-import {StyleSheet, Text, TextInput, View, ScrollView} from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useDispatch, useSelector} from 'react-redux';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {RectButton} from 'react-native-gesture-handler';
+import {RectButton, ScrollView} from 'react-native-gesture-handler';
 import {DragSortableView} from 'react-native-drag-sort';
 
 // import components

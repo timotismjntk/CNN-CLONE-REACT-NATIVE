@@ -9,11 +9,13 @@ import AddImage from './AddImage';
 import AddVideo from './AddVideo';
 import AddYoutube from './AddYoutube';
 import InsertLink from './InsertLink';
+import LoadingModal from '../LoadingModal';
 
 export default function Toolbar({richTextRef}) {
   const [openModalFoto, setOpenModalFoto] = useState({
     status: false,
     response: '',
+    isLoading: false,
   });
   const [openModalVideo, setOpenModalVideo] = useState({
     status: false,
@@ -32,12 +34,17 @@ export default function Toolbar({richTextRef}) {
     if (openModalFoto?.response?.length > 0) {
       richTextRef.current?.insertImage(
         openModalFoto?.response,
-        'background: gray;',
+        'width: 55%; height=100; background: gray;',
       );
+      richTextRef.current?.insertHTML('<br><br>');
       setOpenModalFoto({
         status: false,
         response: '',
+        isLoading: false,
       });
+      setTimeout(() => {
+        richTextRef.current?.insertHTML('&nbsp;'); // fixing bug webview not scrolling
+      }, 2500);
     }
   }, [openModalFoto, richTextRef]);
 
@@ -51,6 +58,9 @@ export default function Toolbar({richTextRef}) {
         status: false,
         response: '',
       });
+      setTimeout(() => {
+        richTextRef.current?.insertHTML('&nbsp;'); // fixing bug webview not scrolling
+      }, 2500);
     }
   }, [openModalVideo, richTextRef]);
 
@@ -64,6 +74,9 @@ export default function Toolbar({richTextRef}) {
         status: false,
         response: {},
       });
+      setTimeout(() => {
+        richTextRef.current?.insertHTML('&nbsp;'); // fixing bug webview not scrolling
+      }, 2500);
     }
   }, [openModalInsertLink, richTextRef]);
 
@@ -97,6 +110,9 @@ export default function Toolbar({richTextRef}) {
           status: false,
           response: {},
         });
+        setTimeout(() => {
+          richTextRef.current?.insertHTML('&nbsp;'); // fixing bug webview not scrolling
+        }, 2500);
       } else {
         Toast.show({
           type: 'error',
@@ -147,6 +163,10 @@ export default function Toolbar({richTextRef}) {
       <InsertLink
         open={openModalInsertLink.status}
         fn={setOpenModalInsertLink}
+      />
+      <LoadingModal
+        open={openModalFoto.isLoading}
+        close={() => setOpenModalFoto(prev => ({...prev, isLoading: false}))}
       />
     </View>
   );

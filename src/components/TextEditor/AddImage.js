@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-
+import ImageResizer from '@bam.tech/react-native-image-resizer';
 import {windowWidth} from '../../utils';
 import {uploadPicture} from '../../helpers/firebase';
 
@@ -19,38 +19,61 @@ export default function AddImage({open, fn}) {
     mediaType: 'photo',
     cameraType: 'back',
     presentationStyle: 'popover',
-    maxWidth: 500,
-    maxHeight: 500,
-    quality: 0.6,
+    quality: 0.5,
     storageOptions: {
       skipBackup: true,
       path: 'images',
     },
+    includeBase64: true,
   }).current;
 
   const libraryOptions = useRef({
     mediaType: 'photo',
     presentationStyle: 'popover',
-    maxWidth: 500,
-    maxHeight: 500,
-    quality: 0.6,
+    quality: 0.5,
     storageOptions: {
       skipBackup: true,
       path: 'images',
     },
+    includeBase64: true,
   }).current;
 
   const addFotoByCamera = React.useCallback(async () => {
     try {
+      fn(prev => ({...prev, isLoading: true}));
       const data = await launchCamera(cameraOptions);
-      if (data?.assets?.length > 0) {
-        if (data?.assets[0]?.uri?.length > 0) {
-          const response = await uploadPicture(data?.assets[0]);
-          if (response) {
-            fn({
-              status: false,
-              response: response,
-            });
+      if (data?.didCancel) {
+        fn(prev => ({...prev, isLoading: false}));
+      } else {
+        if (data?.assets?.length > 0) {
+          if (data?.assets[0]?.uri?.length > 0) {
+            const reduceImageQuality = await ImageResizer.createResizedImage(
+              data?.assets[0]?.uri, // path
+              400, // width
+              400, // height
+              'JPEG', // compressFormat
+              60, // quality
+              0, // rotation
+              undefined, // outputPath
+              false,
+              {mode: 'stretch', onlyScaleDown: true},
+            );
+            if (reduceImageQuality) {
+              const response = await uploadPicture(reduceImageQuality);
+              if (response) {
+                fn({
+                  status: false,
+                  response: response,
+                  isLoading: false,
+                });
+              } else {
+                fn({
+                  status: false,
+                  response: data?.assets[0]?.base64,
+                  isLoading: false,
+                });
+              }
+            }
           }
         }
       }
@@ -59,15 +82,40 @@ export default function AddImage({open, fn}) {
 
   const addFotoByGalery = React.useCallback(async () => {
     try {
+      fn(prev => ({...prev, isLoading: true}));
       const data = await launchImageLibrary(libraryOptions);
-      if (data?.assets?.length > 0) {
-        if (data?.assets[0]?.uri?.length > 0) {
-          const response = await uploadPicture(data?.assets[0]);
-          if (response) {
-            fn({
-              status: false,
-              response: response,
-            });
+      if (data?.didCancel) {
+        fn(prev => ({...prev, isLoading: false}));
+      } else {
+        if (data?.assets?.length > 0) {
+          if (data?.assets[0]?.uri?.length > 0) {
+            const reduceImageQuality = await ImageResizer.createResizedImage(
+              data?.assets[0]?.uri, // path
+              400, // width
+              400, // height
+              'JPEG', // compressFormat
+              60, // quality
+              0, // rotation
+              undefined, // outputPath
+              false,
+              {mode: 'stretch', onlyScaleDown: true},
+            );
+            if (reduceImageQuality) {
+              const response = await uploadPicture(reduceImageQuality);
+              if (response) {
+                fn({
+                  status: false,
+                  response: response,
+                  isLoading: false,
+                });
+              } else {
+                fn({
+                  status: false,
+                  response: data?.assets[0]?.base64,
+                  isLoading: false,
+                });
+              }
+            }
           }
         }
       }
@@ -80,9 +128,11 @@ export default function AddImage({open, fn}) {
       statusBarTranslucent
       hardwareAccelerated
       visible={open}
-      onRequestClose={() => fn({status: false, response: ''})}>
+      onRequestClose={() =>
+        fn(prev => ({...prev, status: false, response: ''}))
+      }>
       <TouchableWithoutFeedback
-        onPress={() => fn({status: false, response: ''})}>
+        onPress={() => fn(prev => ({...prev, status: false, response: ''}))}>
         <View style={styles.container}>
           <View style={styles.modal}>
             <TouchableOpacity onPress={addFotoByCamera} style={styles.menu}>
@@ -99,7 +149,7 @@ export default function AddImage({open, fn}) {
                 color="rgba(0,0,0,0.8)"
                 size={windowWidth * 0.06}
               />
-              <Text style={styles.menuLabel}>Plih Gambar</Text>
+              <Text style={styles.menuLabel}>Pilih Gambar</Text>
             </TouchableOpacity>
           </View>
         </View>

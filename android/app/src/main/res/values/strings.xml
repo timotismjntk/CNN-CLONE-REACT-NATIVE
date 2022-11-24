@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Timo News</string>
+    <string name="facebook_app_id">1098461707533299</string><string name="facebook_client_token">95b054e523e35c75b38e4543d7d34d83</string>
 </resources>

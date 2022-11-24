@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {useState, useRef} from 'react';
 import {useCallback} from 'react';
-import {ScrollView, StyleSheet, Text, View, TextInput} from 'react-native';
-import {RectButton} from 'react-native-gesture-handler';
+import {StyleSheet, Text, View, TextInput} from 'react-native';
+import {RectButton, ScrollView} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch, useSelector} from 'react-redux';
@@ -87,7 +87,9 @@ export default function EditNotes({route: {params}, navigation}) {
         </View>
       </View>
       <Toolbar richTextRef={richText} />
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <ScrollView
+        style={{width: '100%'}}
+        contentContainerStyle={styles.scrollContainer}>
         <TextInput
           selectionColor={color}
           selectTextOnFocus={true}
@@ -121,6 +123,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     paddingTop: '5%',
+    flexGrow: 1,
   },
   headerContainer: {
     backgroundColor: color,

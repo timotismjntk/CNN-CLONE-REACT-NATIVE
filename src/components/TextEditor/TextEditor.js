@@ -42,7 +42,7 @@ export default function TextEditor({
         onChange.setContent(descriptionText);
         onChange.setIsSaved(true);
       }}
-      useContainer={true}
+      useContainer
       pasteAsPlainText={true}
       placeholder={'Tulis Catatan'}
       editorStyle={contentStyle}
@@ -54,5 +54,6 @@ export default function TextEditor({
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: '1%',
+    marginBottom: '4%',
   },
 });
