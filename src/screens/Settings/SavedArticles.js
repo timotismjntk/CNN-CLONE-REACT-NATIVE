@@ -55,6 +55,7 @@ export default function SavedArticles({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   separator: {
     borderWidth: windowHeight * 0.0005,

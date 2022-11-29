@@ -62,8 +62,9 @@ export default function Business({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   flatlistContainer: {
-    paddingTop: '3%',
+    paddingTop: 10,
   },
 });

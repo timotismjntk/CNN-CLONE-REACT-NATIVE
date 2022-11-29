@@ -8,6 +8,7 @@ import Toast, {
   ErrorToast,
   InfoToast,
 } from 'react-native-toast-message';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 // navigationContainer
 import Navigator from './src/navigators/Navigator';
@@ -62,13 +63,15 @@ const toastConfig = {
 
 export default function App() {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SafeAreaProvider>
-          <Navigator />
-          <Toast config={toastConfig} />
-        </SafeAreaProvider>
-      </PersistGate>
-    </Provider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <SafeAreaProvider>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <Navigator />
+          </GestureHandlerRootView>
+            <Toast config={toastConfig} />
+          </SafeAreaProvider>
+        </PersistGate>
+      </Provider>
   );
 }

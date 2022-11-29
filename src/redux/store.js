@@ -26,7 +26,7 @@ const persistConfig = {
   key: 'root',
   storage: reduxStorage,
   version: 0,
-  whitelist: ['savedArticles', 'notes'],
+  whitelist: ['auth', 'savedArticles', 'notes'],
   stateReconciler: hardSet,
 };
 
@@ -34,16 +34,16 @@ const persistedReducer = persistReducer(persistConfig, combineReducers);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: false,
-      immutableCheck: false,
-    }),
   // middleware: getDefaultMiddleware =>
   //   getDefaultMiddleware({
   //     serializableCheck: false,
   //     immutableCheck: false,
-  //   }).concat(logger),
+  //   }),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+    }).concat(logger),
 });
 
 export const persistor = persistStore(store);

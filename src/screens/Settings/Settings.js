@@ -1,24 +1,35 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, Text, ScrollView, View} from 'react-native';
 import {RectButton} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useSelector} from 'react-redux';
 
 import {windowWidth, windowHeight} from '../../utils';
 
 export default function Settings({navigation}) {
+  const {userDataFacebook} = useSelector(state => state.auth) || {};
+  const isLogin = userDataFacebook?.user ? Object.keys(userDataFacebook.user).length > 0 : false;
+
   return (
     <SafeAreaView edges={['bottom', 'left', 'right']} style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.section}>
           <Text style={styles.sectionHeaderTitle}>ACCOUNT</Text>
-          <View style={styles.sectionRow}>
-            <Text style={styles.sectionTitle}>Log In to your TIMO Account</Text>
-            <View style={styles.separator} />
-          </View>
-          <View style={styles.sectionRow}>
-            <Text style={styles.sectionTitle}>Create a free TIMO Account</Text>
-            <View style={styles.separator} />
-          </View>
+          {isLogin ? (
+            <RectButton
+              onPress={() => navigation.navigate('UserNavigator', {screen: 'Profil'})}
+              style={styles.sectionRow}>
+                <Text style={styles.sectionTitle}>My Profil</Text>
+              <View style={styles.separator} />
+            </RectButton>
+          ) : (
+            <RectButton
+              onPress={() => navigation.navigate('UserNavigator', {screen: 'Login'})}
+              style={styles.sectionRow}>
+                <Text style={styles.sectionTitle}>Log In to your TIMO Account</Text>
+              <View style={styles.separator} />
+            </RectButton>
+          )}
           <RectButton
             onPress={() => navigation.navigate('SavedArticles')}
             style={styles.sectionRow}>
@@ -81,6 +92,7 @@ export default function Settings({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   scrollContainer: {
     padding: '3%',
@@ -94,7 +106,7 @@ const styles = StyleSheet.create({
     fontFamily: 'DMSans-Regular',
   },
   sectionRow: {
-    marginTop: '3%',
+    paddingTop: '3%',
     paddingHorizontal: '1%',
   },
   sectionTitle: {

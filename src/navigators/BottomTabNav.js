@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {RectButton} from 'react-native-gesture-handler';
-import Animated, {BounceIn} from 'react-native-reanimated';
+import {StyleSheet, View} from 'react-native';
 
 import {windowWidth, windowHeight} from '../utils';
 import {color} from '../utils/theme';
@@ -10,14 +10,12 @@ import {color} from '../utils/theme';
 const Tab = createBottomTabNavigator();
 
 // import navigators
-import UserNavigator from './UserNavigator';
+import HomeNavigator from './HomeNavigator';
 import SearchNavigator from './SearchNavigator';
 import NotesNavigator from './NotesNavigator';
 import SettingsNavigator from './SettingsNavigator';
 
 export default function RootNavigator() {
-  const MaterialIconsAnimated = Animated.createAnimatedComponent(MaterialIcons);
-
   return (
     <Tab.Navigator
       screenOptions={{
@@ -38,13 +36,11 @@ export default function RootNavigator() {
       <Tab.Screen
         options={{
           tabBarIcon: ({focused, size, color: bottomColor}) => (
-            <MaterialIconsAnimated
-              entering={focused && BounceIn}
+            <MaterialIcons
               name="home"
-              size={
-                focused ? size + windowWidth * 0.015 : size + windowWidth * 0.01
-              }
-              color={bottomColor}
+              size={size}
+              style={focused && styles.activeTabs}
+              color={focused ? 'white' : bottomColor}
             />
           ),
           headerShown: false,
@@ -54,20 +50,18 @@ export default function RootNavigator() {
             fontFamily: 'DMSans-Regular',
           },
         }}
-        name="UserNavigator"
-        component={UserNavigator}
+        name="HomeNavigator"
+        component={HomeNavigator}
         lazy={true}
       />
       <Tab.Screen
         options={{
           tabBarIcon: ({focused, size, color: bottomColor}) => (
-            <MaterialIconsAnimated
-              entering={focused && BounceIn}
+            <MaterialIcons
               name="search"
-              size={
-                focused ? size + windowWidth * 0.015 : size + windowWidth * 0.01
-              }
-              color={bottomColor}
+              size={size}
+              style={focused && styles.activeTabs}
+              color={focused ? 'white' : bottomColor}
             />
           ),
           headerTitle: 'Search',
@@ -92,13 +86,11 @@ export default function RootNavigator() {
       <Tab.Screen
         options={{
           tabBarIcon: ({focused, size, color: bottomColor}) => (
-            <MaterialIconsAnimated
-              entering={focused && BounceIn}
+            <MaterialIcons
               name={focused ? 'bookmark' : 'bookmark-border'}
-              size={
-                focused ? size + windowWidth * 0.015 : size + windowWidth * 0.01
-              }
-              color={bottomColor}
+              size={size}
+              style={focused && styles.activeTabs}
+              color={focused ? 'white' : bottomColor}
             />
           ),
           headerShown: false,
@@ -114,13 +106,11 @@ export default function RootNavigator() {
       <Tab.Screen
         options={{
           tabBarIcon: ({focused, size, color: bottomColor}) => (
-            <MaterialIconsAnimated
-              entering={focused && BounceIn}
-              name="person"
-              size={
-                focused ? size + windowWidth * 0.015 : size + windowWidth * 0.01
-              }
-              color={bottomColor}
+            <MaterialIcons
+              name="settings"
+              size={size}
+              style={focused && styles.activeTabs}
+              color={focused ? 'white' : bottomColor}
             />
           ),
           tabBarLabel: 'Settings',
@@ -142,3 +132,11 @@ export default function RootNavigator() {
     </Tab.Navigator>
   );
 }
+
+const styles = StyleSheet.create({
+  activeTabs: {
+    backgroundColor: color,
+    padding: '3%',
+    borderRadius: windowWidth * 0.02
+  },
+});

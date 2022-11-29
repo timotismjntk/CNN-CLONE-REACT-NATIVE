@@ -121,6 +121,7 @@ export default function Notes({navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   searchbarContainer: {
     flexDirection: 'row',

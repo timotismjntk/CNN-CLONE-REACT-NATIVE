@@ -1,73 +1,71 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
-import {View, Image} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {useSelector} from 'react-redux';
+import {RectButton} from 'react-native-gesture-handler';
+import {useSelector, useDispatch} from 'react-redux';
 
 // import User screens
-import Home from '../screens/Home';
-import Search from '../screens/Search/Search';
 import Login from '../screens/Login';
+import Profil from '../screens/Profil';
 
 const Stack = createStackNavigator();
-import {windowWidth, horizontalTransition} from '../utils';
+import {color} from '../utils/theme';
+import {windowWidth} from '../utils';
+import { logoutFacebook } from '../redux/reducer/auth';
 
 export default function UserNavigator() {
-  // call accesscode stored in mmkv storage
+  const dispatch = useDispatch();
+  const {userDataFacebook} = useSelector(state => state.auth) || {};
+
+  const isLogin = userDataFacebook?.user ? Object.keys(userDataFacebook.user).length > 0 : false;
+
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        options={{
-          ...horizontalTransition,
-          headerTitle: () => (
-            <View
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                overflow: 'hidden',
-              }}>
-              <Image
-                style={{
-                  height: windowWidth * 0.08,
-                  width: windowWidth * 0.25,
-                  resizeMode: 'stretch',
-                }}
-                source={require('../assets/timo.png')}
-              />
-            </View>
-          ),
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: '#e30000',
-          },
-          headerLeft: null,
-        }}
-        name="Home"
-        component={Home}
-        lazy={true}
-      />
-      <Stack.Screen
-        options={{
-          ...horizontalTransition,
-          headerTitle: 'Search',
-          headerTintColor: 'white',
-          headerTitleAlign: 'center',
-          headerStyle: {
-            backgroundColor: '#e30000',
-          },
-          headerLeft: null,
-        }}
-        name="Search"
-        component={Search}
-        lazy={true}
-      />
-      <Stack.Screen
-        options={{...horizontalTransition, headerShown: false}}
-        name="Login"
-        component={Login}
-        lazy={true}
-      />
+      {isLogin ? (
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+            headerTintColor: 'white',
+            gestureEnabled: true,
+            headerTitleStyle: {
+              fontFamily: 'DMSans-Medium',
+            },
+            headerStyle: {
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              elevation: 0,
+            },
+            headerRight: ({tintColor}) => (
+              <RectButton onPress={() => dispatch(logoutFacebook())} rippleColor="white" style={{padding: '3%', borderRadius: windowWidth * 0.02, marginRight: '10%'}}>
+                <Text style={{color: tintColor,  fontSize: windowWidth * 0.034, fontFamily: 'DMSans-Medium'}}>Logout</Text>
+              </RectButton>
+            ),
+          }}
+          name="Profil"
+          component={Profil}
+          lazy={true}
+        />
+      ) : (
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+            headerTintColor: 'white',
+            gestureEnabled: true,
+            headerTitleStyle: {
+              fontFamily: 'DMSans-Medium',
+            },
+            headerStyle: {
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              elevation: 0,
+            },
+          }}
+          name="Login"
+          component={Login}
+          lazy={true}
+        />
+      )}
+      
+      
     </Stack.Navigator>
   );
 }
